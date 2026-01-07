@@ -1,4 +1,3 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Icon } from '@/components/ui/icon';
@@ -13,7 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { AlertCircleIcon, InfoIcon } from 'lucide-react-native';
+import { InfoIcon } from 'lucide-react-native';
+import { toast } from 'sonner-native';
 
 import { signupSchema } from '@/schemas/auth';
 import { signUp } from '@/utils/auth';
@@ -24,7 +24,6 @@ export function SignUpForm() {
   const emailInputRef = React.useRef<TextInput>(null);
   const passwordInputRef = React.useRef<TextInput>(null);
   const passwordConfirmInputRef = React.useRef<TextInput>(null);
-  const [error, setError] = React.useState<string | null>(null);
 
   const {
     control,
@@ -42,21 +41,23 @@ export function SignUpForm() {
   });
 
   async function onSubmit(data: z.infer<typeof signupSchema>) {
-    setError(null);
     const result = await signUp(data);
 
     if (result.success) {
+      toast.success('Account created successfully!');
       router.replace('/(tabs)');
     } else {
-      setError(result.error || 'An error occurred during sign up');
+      toast.error('Error signing up', {
+        description: result.error || 'An error occurred during sign up',
+      });
     }
   }
 
   return (
     <View className="gap-6">
-      <Card className="shadow-none border-border/0 sm:border-border sm:shadow-sm sm:shadow-black/5">
+      <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
         <CardHeader>
-          <CardTitle className="text-xl text-center sm:text-left">
+          <CardTitle className="text-center text-xl sm:text-left">
             Create your Fitness Account
           </CardTitle>
           <CardDescription className="text-center sm:text-left">
@@ -64,12 +65,6 @@ export function SignUpForm() {
           </CardDescription>
         </CardHeader>
         <CardContent className="gap-6">
-          {error && (
-            <Alert variant="destructive" icon={AlertCircleIcon}>
-              <AlertTitle>Error signing up</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
           <View className="gap-6">
             <View className="gap-1.5">
               <Label htmlFor="firstName">First Name</Label>
@@ -202,7 +197,7 @@ export function SignUpForm() {
             </Button>
           </View>
           <View className="flex-row items-center justify-center">
-            <Text className="text-sm text-center">Already have an account? </Text>
+            <Text className="text-center text-sm">Already have an account? </Text>
             <Pressable
               onPress={() => {
                 router.replace('/auth/signin');

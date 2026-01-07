@@ -1,4 +1,3 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Icon } from '@/components/ui/icon';
@@ -13,7 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { AlertCircleIcon, CheckCircleIcon, InfoIcon } from 'lucide-react-native';
+import { InfoIcon } from 'lucide-react-native';
+import { toast } from 'sonner-native';
 
 import { resetPasswordSchema } from '@/schemas/auth';
 import { resetPassword } from '@/utils/auth';
@@ -21,8 +21,6 @@ import { router } from 'expo-router';
 
 export function ResetPasswordForm() {
   const codeInputRef = React.useRef<TextInput>(null);
-  const [error, setError] = React.useState<string | null>(null);
-  const [success, setSuccess] = React.useState(false);
 
   const {
     control,
@@ -37,19 +35,20 @@ export function ResetPasswordForm() {
   });
 
   async function onSubmit(data: z.infer<typeof resetPasswordSchema>) {
-    setError(null);
-    setSuccess(false);
-
     const result = await resetPassword(data);
 
     if (result.success) {
-      setSuccess(true);
+      toast.success('Success', {
+        description: 'Password reset successfully! Redirecting to sign in...',
+      });
       // Navigate to sign in screen after a short delay
       setTimeout(() => {
         router.replace('/auth/signin');
       }, 2000);
     } else {
-      setError(result.error || 'An error occurred while resetting password');
+      toast.error('Error', {
+        description: result.error || 'An error occurred while resetting password',
+      });
     }
   }
 
@@ -59,24 +58,10 @@ export function ResetPasswordForm() {
         <CardHeader>
           <CardTitle className="text-xl text-center sm:text-left">Reset password</CardTitle>
           <CardDescription className="text-center sm:text-left">
-            Enter the code sent to your email and set a new password
+            Enter the oobCode sent to your email to set a new password
           </CardDescription>
         </CardHeader>
         <CardContent className="gap-6">
-          {error && (
-            <Alert variant="destructive" icon={AlertCircleIcon}>
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-          {success && (
-            <Alert variant="default" icon={CheckCircleIcon}>
-              <AlertTitle>Success</AlertTitle>
-              <AlertDescription>
-                Password reset successfully! Redirecting to sign in...
-              </AlertDescription>
-            </Alert>
-          )}
           <View className="gap-6">
             <View className="gap-1.5">
               <View className="flex-row items-center gap-1">
@@ -135,6 +120,9 @@ export function ResetPasswordForm() {
                 )}
               />
               {errors.code && <Text className="text-sm text-red-500">{errors.code.message}</Text>}
+              <Text className="text-sm text-muted-foreground">
+                You may also click the link included in the email to reset your password on the web.
+              </Text>
             </View>
             <Button className="w-full" onPress={handleSubmit(onSubmit)}>
               <Text>Reset Password</Text>

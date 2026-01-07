@@ -1,4 +1,3 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -11,16 +10,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { AlertCircleIcon, CheckCircleIcon } from 'lucide-react-native';
+import { toast } from 'sonner-native';
 
 import { forgotPasswordSchema } from '@/schemas/auth';
 import { sendPasswordReset } from '@/utils/auth';
 import { router } from 'expo-router';
 
 export function ForgotPasswordForm() {
-  const [error, setError] = React.useState<string | null>(null);
-  const [success, setSuccess] = React.useState(false);
-
   const {
     control,
     handleSubmit,
@@ -33,46 +29,33 @@ export function ForgotPasswordForm() {
   });
 
   async function onSubmit(data: z.infer<typeof forgotPasswordSchema>) {
-    setError(null);
-    setSuccess(false);
-
     const result = await sendPasswordReset(data);
 
     if (result.success) {
-      setSuccess(true);
+      toast.success('Success', {
+        description: 'Password reset email sent! Check your inbox and follow the instructions.',
+      });
       // Navigate to reset password screen after a short delay
       setTimeout(() => {
         router.replace('/auth/reset-password');
       }, 2000);
     } else {
-      setError(result.error || 'An error occurred while sending password reset email');
+      toast.error('Error', {
+        description: result.error || 'An error occurred while sending password reset email',
+      });
     }
   }
 
   return (
     <View className="gap-6">
-      <Card className="shadow-none border-border/0 sm:border-border sm:shadow-sm sm:shadow-black/5">
+      <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
         <CardHeader>
-          <CardTitle className="text-xl text-center sm:text-left">Forgot password?</CardTitle>
+          <CardTitle className="text-center text-xl sm:text-left">Forgot password?</CardTitle>
           <CardDescription className="text-center sm:text-left">
             Enter your email to reset your password
           </CardDescription>
         </CardHeader>
         <CardContent className="gap-6">
-          {error && (
-            <Alert variant="destructive" icon={AlertCircleIcon}>
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-          {success && (
-            <Alert variant="default" icon={CheckCircleIcon}>
-              <AlertTitle>Success</AlertTitle>
-              <AlertDescription>
-                Password reset email sent! Check your inbox and follow the instructions.
-              </AlertDescription>
-            </Alert>
-          )}
           <View className="gap-6">
             <View className="gap-1.5">
               <Label htmlFor="email">Email</Label>

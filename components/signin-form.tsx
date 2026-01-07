@@ -1,4 +1,3 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -11,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { AlertCircleIcon } from 'lucide-react-native';
+import { toast } from 'sonner-native';
 
 import { signinSchema } from '@/schemas/auth';
 import { signIn } from '@/utils/auth';
@@ -19,7 +18,6 @@ import { router } from 'expo-router';
 
 export function SignInForm() {
   const passwordInputRef = React.useRef<TextInput>(null);
-  const [error, setError] = React.useState<string | null>(null);
 
   const {
     control,
@@ -34,32 +32,28 @@ export function SignInForm() {
   });
 
   async function onSubmit(data: z.infer<typeof signinSchema>) {
-    setError(null);
     const result = await signIn(data);
 
     if (result.success) {
+      toast.success('Signed in successfully!');
       router.replace('/(tabs)');
     } else {
-      setError(result.error || 'An error occurred during sign in');
+      toast.error('Error signing in', {
+        description: result.error || 'An error occurred during sign in',
+      });
     }
   }
 
   return (
     <View className="gap-6">
-      <Card className="shadow-none border-border/0 sm:border-border sm:shadow-sm sm:shadow-black/5">
+      <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
         <CardHeader>
-          <CardTitle className="text-xl text-center sm:text-left">Sign In to Fitness</CardTitle>
+          <CardTitle className="text-center text-xl sm:text-left">Sign In to Fitness</CardTitle>
           <CardDescription className="text-center sm:text-left">
             Welcome back! Please sign in to continue
           </CardDescription>
         </CardHeader>
         <CardContent className="gap-6">
-          {error && (
-            <Alert variant="destructive" icon={AlertCircleIcon}>
-              <AlertTitle>Error signing in</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
           <View className="gap-6">
             <View className="gap-1.5">
               <Label htmlFor="email">Email</Label>
@@ -89,7 +83,7 @@ export function SignInForm() {
                 <Button
                   variant="link"
                   size="sm"
-                  className="h-4 px-1 py-0 ml-auto web:h-fit sm:h-4"
+                  className="ml-auto h-4 px-1 py-0 web:h-fit sm:h-4"
                   onPress={() => {
                     router.replace('/auth/forgot-password');
                   }}>
@@ -121,7 +115,7 @@ export function SignInForm() {
             </Button>
           </View>
           <View className="flex-row items-center justify-center">
-            <Text className="text-sm text-center">Don&apos;t have an account? </Text>
+            <Text className="text-center text-sm">Don&apos;t have an account? </Text>
             <Pressable
               onPress={() => {
                 router.replace('/auth/signup');

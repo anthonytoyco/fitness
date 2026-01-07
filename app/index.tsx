@@ -12,7 +12,7 @@ const LOGO = {
 };
 
 const SCREEN_OPTIONS = {
-  title: 'React Native Reusables',
+  title: 'Fitness',
   headerTransparent: true,
   headerRight: () => <ThemeToggle />,
 };
