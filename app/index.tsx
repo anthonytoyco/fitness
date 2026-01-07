@@ -40,15 +40,14 @@ export default function Screen() {
           </Text>
         </View>
         <View className="flex-row gap-2">
-          <Link href="https://reactnativereusables.com" asChild>
+          <Link href="/auth/signup" asChild>
             <Button>
-              <Text>Browse the Docs</Text>
+              <Text>Signup</Text>
             </Button>
           </Link>
-          <Link href="https://github.com/founded-labs/react-native-reusables" asChild>
-            <Button variant="ghost">
-              <Text>Star the Repo</Text>
-              <Icon as={StarIcon} />
+          <Link href="/auth/signin" asChild>
+            <Button>
+              <Text>Signin</Text>
             </Button>
           </Link>
         </View>
