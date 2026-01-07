@@ -15,10 +15,9 @@ import { z } from 'zod';
 
 import { AlertCircleIcon, InfoIcon } from 'lucide-react-native';
 
-import { auth } from '@/FirebaseConfig';
 import { signupSchema } from '@/schemas/auth';
+import { signUp } from '@/utils/auth';
 import { router } from 'expo-router';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export function SignUpForm() {
   const lastNameInputRef = React.useRef<TextInput>(null);
@@ -44,23 +43,20 @@ export function SignUpForm() {
 
   async function onSubmit(data: z.infer<typeof signupSchema>) {
     setError(null);
-    try {
-      const user = await createUserWithEmailAndPassword(auth, data.email, data.password);
-      if (user) {
-        console.log('SUCCESS: User signed up:', user);
-        router.replace('/(tabs)');
-      }
-    } catch (error: any) {
-      console.log('ERROR: ', error);
-      setError(error.message || 'An error occurred during sign up');
+    const result = await signUp(data);
+
+    if (result.success) {
+      router.replace('/(tabs)');
+    } else {
+      setError(result.error || 'An error occurred during sign up');
     }
   }
 
   return (
     <View className="gap-6">
-      <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
+      <Card className="shadow-none border-border/0 sm:border-border sm:shadow-sm sm:shadow-black/5">
         <CardHeader>
-          <CardTitle className="text-center text-xl sm:text-left">
+          <CardTitle className="text-xl text-center sm:text-left">
             Create your Fitness Account
           </CardTitle>
           <CardDescription className="text-center sm:text-left">
@@ -206,7 +202,7 @@ export function SignUpForm() {
             </Button>
           </View>
           <View className="flex-row items-center justify-center">
-            <Text className="text-center text-sm">Already have an account? </Text>
+            <Text className="text-sm text-center">Already have an account? </Text>
             <Pressable
               onPress={() => {
                 router.replace('/auth/signin');
