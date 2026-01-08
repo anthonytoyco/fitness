@@ -1,73 +1,148 @@
-# Minimal Template
+# Fitness Tracker with AI-Powered Calorie Logging
 
-This is a [React Native](https://reactnative.dev/) project built with [Expo](https://expo.dev/) and [React Native Reusables](https://reactnativereusables.com).
+An intelligent fitness tracking application that combines calendar-based activity logging with AI-powered image analysis using Google Gemini. Track your calories, workouts, runs, and health metrics seamlessly with the power of artificial intelligence.
 
-It was initialized using the following command:
+## Overview
 
-```bash
-npx @react-native-reusables/cli@latest init -t fitness
+This fitness tracker revolutionizes how you log your health and fitness activities by leveraging AI technology. Simply take a photo of your food or speak to your virtual assistant, and let Google Gemini do the heavy lifting of analyzing and logging your activities.
+
+## Key Features
+
+### AI-Powered Calorie Logging
+
+- **Smart Food Recognition**: Take photos of your meals and let Google Gemini automatically identify all food items
+- **Detailed Nutritional Analysis**: Get comprehensive nutritional information including:
+  - Individual calorie counts for each food item
+  - Complete nutrient breakdown (similar to nutrition labels)
+  - Vitamins and minerals content
+  - Total meal calories
+- **Calendar Integration**: All logs are automatically saved to your personal calendar with full edit capabilities
+
+### Voice-Activated Task Logging
+
+- Use your phone's microphone to tell Gemini about completed activities
+- AI automatically parses your speech and adds tasks to your calendar
+- Hands-free logging for workouts, runs, and other physical activities
+
+### Calendar-Based History
+
+- View all your logged activities in an organized calendar format
+- Edit and update past entries as needed
+- Track your fitness journey over time
+
+### User Authentication
+
+- Secure sign-in and sign-up functionality
+- Password reset and recovery options
+- Firebase-powered authentication system
+
+## 🛠️ Tech Stack
+
+- **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
+- **Navigation**: [Expo Router](https://expo.dev/router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) via [NativeWind](https://www.nativewind.dev/)
+- **UI Components**: [React Native Reusables](https://reactnativereusables.com)
+- **Backend**: [Firebase](https://firebase.google.com/)
+- **AI Engine**: Google Gemini
+- **Forms**: React Hook Form with Zod validation
+- **Calendar**: React Native Calendars
+- **Type Safety**: TypeScript
+- **Image Selection**: Expo Image Picker
+
+## 📁 Project Structure
+
+```
+fitness/
+├── app/                          # Application screens and routing
+│   ├── (tabs)/                  # Tab-based navigation
+│   │   ├── index.tsx           # Home/Dashboard
+│   │   └── image-picker.tsx    # Calorie logging entry screen
+│   └── auth/                    # Authentication flows
+│       ├── signin.tsx
+│       ├── signup.tsx
+│       ├── forgot-password.tsx
+│       └── reset-password.tsx
+├── components/                   # Reusable UI components
+│   ├── forms/                   # Form components
+│   └── ui/                      # UI primitives
+├── contexts/                     # React contexts
+│   └── AuthContext.tsx          # Authentication state management
+├── hooks/                        # Custom React hooks
+├── schemas/                      # Zod validation schemas
+├── utils/                        # Utility functions
+└── FirebaseConfig.ts            # Firebase configuration
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
-To run the development server:
+### Prerequisites
 
-```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
-```
+- Node.js (v18 or higher)
+- pnpm, npm, yarn, or bun
+- Expo CLI
+- iOS Simulator (Mac only) or Android Emulator
 
-This will start the Expo Dev Server. Open the app in:
+### Installation
 
-- **iOS**: press `i` to launch in the iOS simulator _(Mac only)_
-- **Android**: press `a` to launch in the Android emulator
-- **Web**: press `w` to run in a browser
-
-You can also scan the QR code using the [Expo Go](https://expo.dev/go) app on your device. This project fully supports running in Expo Go for quick testing on physical devices.
-
-## Adding components
-
-You can add more reusable components using the CLI:
+1. Clone the repository:
 
 ```bash
-npx react-native-reusables/cli@latest add [...components]
+git clone https://github.com/anthonytoyco/fitness.git
+cd fitness
 ```
 
-> e.g. `npx react-native-reusables/cli@latest add input textarea`
+2. Install dependencies:
 
-If you don't specify any component names, you'll be prompted to select which components to add interactively. Use the `--all` flag to install all available components at once.
+```bash
+pnpm install
+# or
+npm install
+# or
+yarn install
+```
 
-## Project Features
+3. Configure Firebase:
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Add your Firebase configuration to the `.env` file
 
-- ⚛️ Built with [Expo Router](https://expo.dev/router)
-- 🎨 Styled with [Tailwind CSS](https://tailwindcss.com/) via [Nativewind](https://www.nativewind.dev/)
-- 📦 UI powered by [React Native Reusables](https://github.com/founded-labs/react-native-reusables)
-- 🚀 New Architecture enabled
-- 🔥 Edge to Edge enabled
-- 📱 Runs on iOS, Android, and Web
+4. Set up Google Gemini API:
+   - Obtain API credentials from [Google AI Studio](https://makersuite.google.com/)
+   - Add your API key to the `.env` file
 
-## Learn More
+### Running the App
 
-To dive deeper into the technologies used:
+Start the development server:
 
-- [React Native Docs](https://reactnative.dev/docs/getting-started)
-- [Expo Docs](https://docs.expo.dev/)
-- [Nativewind Docs](https://www.nativewind.dev/)
-- [React Native Reusables](https://reactnativereusables.com)
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-## Deploy with EAS
+Open the app:
 
-The easiest way to deploy your app is with [Expo Application Services (EAS)](https://expo.dev/eas).
+- **iOS**: Press `i` to launch in the iOS simulator _(Mac only)_
+- **Android**: Press `a` to launch in the Android emulator
+- **Web**: Press `w` to run in a browser
+- **Physical Device**: Scan the QR code with the [Expo Go](https://expo.dev/go) app
 
-- [EAS Build](https://docs.expo.dev/build/introduction/)
-- [EAS Updates](https://docs.expo.dev/eas-update/introduction/)
-- [EAS Submit](https://docs.expo.dev/submit/introduction/)
+## Usage
 
----
+1. **Sign Up/Sign In**: Create an account or log in to access your personal fitness tracker
+2. **Log Meals**: Navigate to the entry tab, take a photo of your food, and let Gemini analyze it
+3. **Voice Logging**: Use the microphone feature to speak your completed activities
+4. **View History**: Check your calendar to see all logged activities
+5. **Edit Entries**: Tap on any calendar entry to view details or make adjustments
 
-If you enjoy using React Native Reusables, please consider giving it a ⭐ on [GitHub](https://github.com/founded-labs/react-native-reusables). Your support means a lot!
+## 🔮 Roadmap\*
+
+- [ ] Complete Google Gemini integration for food image analysis
+- [ ] Implement voice-to-text activity logging
+- [ ] Enhanced calendar view with activity filtering
+- [ ] Workout session tracking
+- [ ] Running/cardio activity logging
+- [ ] Health status monitoring
+- [ ] Progress charts and analytics
+- [ ] Social sharing features
+- [ ] Goal setting and achievement tracking
+- [ ] Meal planning suggestions
