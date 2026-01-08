@@ -61,6 +61,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="camera" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="image-picker"
+        options={{
+          title: 'Image Picker',
+          tabBarIcon: ({ color }) => <TabBarIcon name="image" color={color} />,
+        }}
+      />
     </Tabs>
   );
 }
