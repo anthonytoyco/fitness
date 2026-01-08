@@ -1,11 +1,23 @@
-import { auth } from '@/FirebaseConfig';
+import { auth, db } from '@/FirebaseConfig';
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
   confirmPasswordReset,
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
   type UserCredential,
 } from 'firebase/auth';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import * as React from 'react';
 
 export interface SignUpData {
   email: string;
@@ -34,12 +46,18 @@ export interface AuthResult {
   error?: string;
 }
 
-/**
- * Sign up a new user with email and password
- */
 export async function signUp(data: SignUpData): Promise<AuthResult> {
   try {
     const user = await createUserWithEmailAndPassword(auth, data.email, data.password);
+
+    await setDoc(doc(db, 'users', user.user.uid), {
+      uid: user.user.uid,
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      createdAt: new Date().toISOString(),
+    });
+
     console.log('SUCCESS: User signed up:', user);
     return { success: true, user };
   } catch (error: any) {
@@ -51,9 +69,6 @@ export async function signUp(data: SignUpData): Promise<AuthResult> {
   }
 }
 
-/**
- * Sign in an existing user with email and password
- */
 export async function signIn(data: SignInData): Promise<AuthResult> {
   try {
     const user = await signInWithEmailAndPassword(auth, data.email, data.password);
@@ -68,9 +83,6 @@ export async function signIn(data: SignInData): Promise<AuthResult> {
   }
 }
 
-/**
- * Send a password reset email to the user
- */
 export async function sendPasswordReset(data: ForgotPasswordData): Promise<AuthResult> {
   try {
     await sendPasswordResetEmail(auth, data.email);
@@ -85,9 +97,6 @@ export async function sendPasswordReset(data: ForgotPasswordData): Promise<AuthR
   }
 }
 
-/**
- * Reset password with verification code
- */
 export async function resetPassword(data: ResetPasswordData): Promise<AuthResult> {
   try {
     await confirmPasswordReset(auth, data.code, data.newPassword);

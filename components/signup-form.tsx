@@ -66,50 +66,52 @@ export function SignUpForm() {
         </CardHeader>
         <CardContent className="gap-6">
           <View className="gap-6">
-            <View className="gap-1.5">
-              <Label htmlFor="firstName">First Name</Label>
-              <Controller
-                control={control}
-                name="firstName"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Input
-                    id="firstName"
-                    placeholder="John"
-                    autoCapitalize="words"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    onSubmitEditing={() => lastNameInputRef.current?.focus()}
-                    returnKeyType="next"
-                  />
+            <View className="flex-row gap-4">
+              <View className="flex-1 gap-1.5">
+                <Label htmlFor="firstName">First Name</Label>
+                <Controller
+                  control={control}
+                  name="firstName"
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Input
+                      id="firstName"
+                      placeholder="John"
+                      autoCapitalize="words"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      onSubmitEditing={() => lastNameInputRef.current?.focus()}
+                      returnKeyType="next"
+                    />
+                  )}
+                />
+                {errors.firstName && (
+                  <Text className="text-sm text-red-500">{errors.firstName.message}</Text>
                 )}
-              />
-              {errors.firstName && (
-                <Text className="text-sm text-red-500">{errors.firstName.message}</Text>
-              )}
-            </View>
-            <View className="gap-1.5">
-              <Label htmlFor="lastName">Last Name</Label>
-              <Controller
-                control={control}
-                name="lastName"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Input
-                    ref={lastNameInputRef}
-                    id="lastName"
-                    placeholder="Doe"
-                    autoCapitalize="words"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    onSubmitEditing={() => emailInputRef.current?.focus()}
-                    returnKeyType="next"
-                  />
+              </View>
+              <View className="flex-1 gap-1.5">
+                <Label htmlFor="lastName">Last Name</Label>
+                <Controller
+                  control={control}
+                  name="lastName"
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Input
+                      ref={lastNameInputRef}
+                      id="lastName"
+                      placeholder="Doe"
+                      autoCapitalize="words"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      onSubmitEditing={() => emailInputRef.current?.focus()}
+                      returnKeyType="next"
+                    />
+                  )}
+                />
+                {errors.lastName && (
+                  <Text className="text-sm text-red-500">{errors.lastName.message}</Text>
                 )}
-              />
-              {errors.lastName && (
-                <Text className="text-sm text-red-500">{errors.lastName.message}</Text>
-              )}
+              </View>
             </View>
             <View className="gap-1.5">
               <Label htmlFor="email">Email</Label>
