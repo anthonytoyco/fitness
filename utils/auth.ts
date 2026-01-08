@@ -2,22 +2,16 @@ import { auth, db } from '@/FirebaseConfig';
 import {
   confirmPasswordReset,
   createUserWithEmailAndPassword,
-  getAuth,
+  signOut as firebaseSignOut,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   type UserCredential,
 } from 'firebase/auth';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import * as React from 'react';
+import { doc, setDoc } from 'firebase/firestore';
+
+function generateRandomAvatarUrl(firstName: string, lastName: string): string {
+  return `https://avatar.iran.liara.run/username?username=${firstName}+${lastName}`;
+}
 
 export interface SignUpData {
   email: string;
@@ -49,12 +43,14 @@ export interface AuthResult {
 export async function signUp(data: SignUpData): Promise<AuthResult> {
   try {
     const user = await createUserWithEmailAndPassword(auth, data.email, data.password);
+    const photoUrl = generateRandomAvatarUrl(data.firstName, data.lastName);
 
     await setDoc(doc(db, 'users', user.user.uid), {
       uid: user.user.uid,
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
+      photoUrl: photoUrl,
       createdAt: new Date().toISOString(),
     });
 
@@ -107,6 +103,20 @@ export async function resetPassword(data: ResetPasswordData): Promise<AuthResult
     return {
       success: false,
       error: error.message || 'An error occurred while resetting password',
+    };
+  }
+}
+
+export async function signOut(): Promise<AuthResult> {
+  try {
+    await firebaseSignOut(auth);
+    console.log('SUCCESS: User signed out');
+    return { success: true };
+  } catch (error: any) {
+    console.log('ERROR: ', error);
+    return {
+      success: false,
+      error: error.message || 'An error occurred during sign out',
     };
   }
 }
