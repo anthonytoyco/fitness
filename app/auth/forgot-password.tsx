@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { ForgotPasswordForm } from '@/components/forgot-password-form';
+import { ForgotPasswordForm } from '@/components/forms/forgot-password-form';
 
 const SCREEN_OPTIONS = {
   title: 'Forgot Password',

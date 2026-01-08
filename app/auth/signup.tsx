@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { SignUpForm } from '@/components/signup-form';
+import { SignUpForm } from '@/components/forms/signup-form';
 
 const SCREEN_OPTIONS = {
   title: 'Signup',

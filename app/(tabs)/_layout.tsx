@@ -1,18 +1,13 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { Calendar, Image } from 'lucide-react-native';
 
 import { UserMenu } from '@/components/user-menu';
 import Colors from '@/constants/Colors';
-import { useClientOnlyValue } from '@/hooks/useClientOnlyValue';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+function TabBarIcon({ Icon, color }: { Icon: any; color: string }) {
+  return <Icon size={24} color={color} strokeWidth={2} />;
 }
 
 export default function TabLayout() {
@@ -22,15 +17,12 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Calendar',
+          tabBarIcon: ({ color }) => <TabBarIcon Icon={Calendar} color={color} />,
           headerRight: () => <UserMenu />,
         }}
       />
@@ -38,7 +30,7 @@ export default function TabLayout() {
         name="image-picker"
         options={{
           title: 'Image Picker',
-          tabBarIcon: ({ color }) => <TabBarIcon name="image" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon Icon={Image} color={color} />,
         }}
       />
     </Tabs>

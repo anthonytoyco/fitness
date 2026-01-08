@@ -1,5 +1,10 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
- 
+import { Platform } from 'react-native';
+
+/**
+ * Core theme colors for light and dark modes
+ * Used across the app for consistent styling
+ */
 export const THEME = {
   light: {
     background: 'hsl(0 0% 100%)',
@@ -54,7 +59,82 @@ export const THEME = {
     chart5: 'hsl(340 75% 55%)',
   },
 };
- 
+
+/**
+ * Calendar-specific theme constants
+ */
+export const CALENDAR_THEME = {
+  primaryColor: '#00AAAF',
+  todayColor: '#31748f',
+  dotColor: '#9ccfd8',
+  fontSize: {
+    month: 16,
+    dayHeader: 12,
+    day: 18,
+  },
+  fontWeight: {
+    month: 'bold' as const,
+    dayHeader: 'normal' as const,
+    day: '500' as const,
+  },
+};
+
+/**
+ * Generate calendar theme configuration for react-native-calendars
+ * @param isDark - Whether dark mode is enabled
+ * @returns Calendar theme object
+ */
+export function getCalendarTheme(isDark: boolean) {
+  const colors = isDark ? THEME.dark : THEME.light;
+  const disabledColor = isDark ? '#666' : '#999';
+
+  return {
+    // Arrow navigation
+    arrowColor: colors.foreground,
+    arrowStyle: { padding: 0 },
+
+    // Expandable knob
+    expandableKnobColor: CALENDAR_THEME.primaryColor,
+
+    // Month header
+    monthTextColor: colors.foreground,
+    textMonthFontSize: CALENDAR_THEME.fontSize.month,
+    textMonthFontWeight: CALENDAR_THEME.fontWeight.month,
+
+    // Day header (weekday names)
+    textSectionTitleColor: colors.foreground,
+    textDayHeaderFontSize: CALENDAR_THEME.fontSize.dayHeader,
+    textDayHeaderFontWeight: CALENDAR_THEME.fontWeight.dayHeader,
+
+    // Day numbers
+    dayTextColor: isDark ? colors.mutedForeground : CALENDAR_THEME.primaryColor,
+    todayTextColor: CALENDAR_THEME.todayColor,
+    textDayFontSize: CALENDAR_THEME.fontSize.day,
+    textDayFontWeight: CALENDAR_THEME.fontWeight.day,
+    textDayStyle: { marginTop: Platform.OS === 'android' ? 2 : 4 },
+
+    // Selected day
+    selectedDayBackgroundColor: CALENDAR_THEME.primaryColor,
+    selectedDayTextColor: 'white',
+
+    // Disabled dates
+    textDisabledColor: disabledColor,
+
+    // Dots (marked dates)
+    dotColor: CALENDAR_THEME.dotColor,
+    selectedDotColor: 'white',
+    disabledDotColor: disabledColor,
+    dotStyle: { marginTop: -2 },
+
+    // Calendar background
+    calendarBackground: colors.background,
+    backgroundColor: colors.background,
+  };
+}
+
+/**
+ * Navigation theme configuration
+ */
 export const NAV_THEME: Record<'light' | 'dark', Theme> = {
   light: {
     ...DefaultTheme,
