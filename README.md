@@ -67,7 +67,6 @@ This fitness tracker revolutionizes how you log your health and fitness activiti
 
 ```bash
 git clone https://github.com/anthonytoyco/fitness.git
-cd fitness
 ```
 
 2. Install dependencies:
