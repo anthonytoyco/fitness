@@ -8,11 +8,12 @@ This fitness tracker revolutionizes how you log your health and fitness activiti
 
 ## Screenshots
 
-![Calendar](assets/screenshots/calendar.png)
-![Calendar Info](assets/screenshots/calendar-info.png)
-![Upload](assets/screenshots/upload.png)
-![Uploaded](assets/screenshots/uploaded.png)
-![Result](assets/screenshots/result.png)
+<img src="assets/screenshots/calendar.png" alt="Calendar" width="250" />
+<img src="assets/screenshots/calendar-info.png" alt="Calendar Info" width="250" />
+<img src="assets/screenshots/upload.png" alt="Uploaded" width="250" />
+<img src="assets/screenshots/analyze.png" alt="Result" width="250" />
+<img src="assets/screenshots/analysis.png" alt="Result" width="250" />
+<img src="assets/screenshots/result.png" alt="Result" width="250" />
 
 ## Key Features
 
