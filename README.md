@@ -52,30 +52,6 @@ This fitness tracker revolutionizes how you log your health and fitness activiti
 - **Type Safety**: TypeScript
 - **Image Selection**: Expo Image Picker
 
-## 📁 Project Structure
-
-```
-fitness/
-├── app/                          # Application screens and routing
-│   ├── (tabs)/                  # Tab-based navigation
-│   │   ├── index.tsx           # Home/Dashboard
-│   │   └── image-picker.tsx    # Calorie logging entry screen
-│   └── auth/                    # Authentication flows
-│       ├── signin.tsx
-│       ├── signup.tsx
-│       ├── forgot-password.tsx
-│       └── reset-password.tsx
-├── components/                   # Reusable UI components
-│   ├── forms/                   # Form components
-│   └── ui/                      # UI primitives
-├── contexts/                     # React contexts
-│   └── AuthContext.tsx          # Authentication state management
-├── hooks/                        # Custom React hooks
-├── schemas/                      # Zod validation schemas
-├── utils/                        # Utility functions
-└── FirebaseConfig.ts            # Firebase configuration
-```
-
 ## 🚀 Getting Started
 
 ### Prerequisites
