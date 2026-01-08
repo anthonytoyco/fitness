@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Calendar, Image } from 'lucide-react-native';
+import { Calendar, Camera } from 'lucide-react-native';
 
 import { UserMenu } from '@/components/user-menu';
 import Colors from '@/constants/Colors';
@@ -27,10 +27,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="image-picker"
+        options={{
+          title: 'Log Food',
+          tabBarIcon: ({ color }) => <TabBarIcon Icon={Camera} color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="entry"
         options={{
-          title: 'Entry',
-          tabBarIcon: ({ color }) => <TabBarIcon Icon={Image} color={color} />,
+          href: null, // Hide this tab
         }}
       />
     </Tabs>

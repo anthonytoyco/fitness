@@ -4,7 +4,15 @@ An intelligent fitness tracking application that combines calendar-based activit
 
 ## Overview
 
-This fitness tracker revolutionizes how you log your health and fitness activities by leveraging AI technology. Simply take a photo of your food or speak to your virtual assistant, and let Google Gemini do the heavy lifting of analyzing and logging your activities.
+This fitness tracker revolutionizes how you log your health and fitness activities by leveraging AI technology. Simply take a photo of your food, and let Google Gemini do the heavy lifting of analyzing and logging your activities.
+
+## Screenshots
+
+![Calendar](assets/screenshots/calendar.png)
+![Calendar Info](assets/screenshots/calendar-info.png)
+![Upload](assets/screenshots/upload.png)
+![Uploaded](assets/screenshots/uploaded.png)
+![Result](assets/screenshots/result.png)
 
 ## Key Features
 
@@ -18,12 +26,6 @@ This fitness tracker revolutionizes how you log your health and fitness activiti
   - Total meal calories
 - **Calendar Integration**: All logs are automatically saved to your personal calendar with full edit capabilities
 
-### Voice-Activated Task Logging
-
-- Use your phone's microphone to tell Gemini about completed activities
-- AI automatically parses your speech and adds tasks to your calendar
-- Hands-free logging for workouts, runs, and other physical activities
-
 ### Calendar-Based History
 
 - View all your logged activities in an organized calendar format
@@ -36,7 +38,7 @@ This fitness tracker revolutionizes how you log your health and fitness activiti
 - Password reset and recovery options
 - Firebase-powered authentication system
 
-## 🛠️ Tech Stack
+## �🛠️ Tech Stack
 
 - **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
 - **Navigation**: [Expo Router](https://expo.dev/router)
@@ -130,15 +132,13 @@ Open the app:
 
 1. **Sign Up/Sign In**: Create an account or log in to access your personal fitness tracker
 2. **Log Meals**: Navigate to the entry tab, take a photo of your food, and let Gemini analyze it
-3. **Voice Logging**: Use the microphone feature to speak your completed activities
-4. **View History**: Check your calendar to see all logged activities
-5. **Edit Entries**: Tap on any calendar entry to view details or make adjustments
+3. **View History**: Check your calendar to see all logged activities
+4. **Edit Entries**: Tap on any calendar entry to view details or make adjustments
 
 ## 🔮 Roadmap\*
 
 - [ ] Complete Google Gemini integration for food image analysis
 - [ ] Implement voice-to-text activity logging
-- [ ] Enhanced calendar view with activity filtering
 - [ ] Workout session tracking
 - [ ] Running/cardio activity logging
 - [ ] Health status monitoring
