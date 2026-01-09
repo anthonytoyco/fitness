@@ -2,14 +2,8 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { Link, Stack } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { Image, type ImageStyle, View } from 'react-native';
-
-const LOGO = {
-  light: require('@/assets/images/react-native-reusables-light.png'),
-  dark: require('@/assets/images/react-native-reusables-dark.png'),
-};
+import { View } from 'react-native';
 
 const SCREEN_OPTIONS = {
   title: 'Fitness',
@@ -17,36 +11,49 @@ const SCREEN_OPTIONS = {
   headerRight: () => <ThemeToggle />,
 };
 
-const IMAGE_STYLE: ImageStyle = {
-  height: 76,
-  width: 76,
-};
-
 export default function Screen() {
-  const { colorScheme } = useColorScheme();
-
   return (
     <>
       <Stack.Screen options={SCREEN_OPTIONS} />
-      <View className="items-center justify-center flex-1 gap-8 p-4">
-        <Image source={LOGO[colorScheme ?? 'light']} style={IMAGE_STYLE} resizeMode="contain" />
-        <View className="gap-2 p-4">
-          <Text className="font-mono text-sm ios:text-foreground text-muted-foreground">
-            1. Edit <Text variant="code">app/index.tsx</Text> to get started.
-          </Text>
-          <Text className="font-mono text-sm ios:text-foreground text-muted-foreground">
-            2. Save to see your changes instantly.
+      <View className="flex-1 items-center justify-center gap-8 p-6">
+        <View className="items-center gap-3">
+          <Text className="text-center text-5xl font-bold">💪</Text>
+          <Text className="text-center text-4xl font-bold">Fitness Tracker</Text>
+          <Text className="max-w-md text-center text-lg text-muted-foreground">
+            Your personal fitness companion
           </Text>
         </View>
-        <View className="flex-row gap-2">
+
+        <View className="max-w-md gap-4">
+          <View className="gap-2">
+            <Text className="text-base font-semibold">📊 Track Your Progress</Text>
+            <Text className="text-sm text-muted-foreground">
+              Log your workouts, meals, and activities with ease
+            </Text>
+          </View>
+          <View className="gap-2">
+            <Text className="text-base font-semibold">🎯 Reach Your Goals</Text>
+            <Text className="text-sm text-muted-foreground">
+              Set personalized fitness goals and monitor your achievements
+            </Text>
+          </View>
+          <View className="gap-2">
+            <Text className="text-base font-semibold">📈 Stay Motivated</Text>
+            <Text className="text-sm text-muted-foreground">
+              Visualize your journey and celebrate your wins
+            </Text>
+          </View>
+        </View>
+
+        <View className="flex-row gap-3">
           <Link href="/auth/signup" asChild>
-            <Button>
-              <Text>Signup</Text>
+            <Button size="lg">
+              <Text>Get Started</Text>
             </Button>
           </Link>
           <Link href="/auth/signin" asChild>
-            <Button>
-              <Text>Signin</Text>
+            <Button size="lg" variant="outline">
+              <Text>Sign In</Text>
             </Button>
           </Link>
         </View>
