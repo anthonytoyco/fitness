@@ -39,9 +39,24 @@ This fitness tracker revolutionizes how you log your health and fitness activiti
 - Password reset and recovery options
 - Firebase-powered authentication system
 
-## �🛠️ Tech Stack
+## Download
+
+### Android APK
+
+Download the latest Android APK directly (built with EAS):
+
+**[Download fitness.apk](https://drive.google.com/file/d/1ZElFdWWsjuiCDZuaYNqxSkVYKMVEHaWN/view?usp=sharing)**
+
+To install:
+
+1. Download the APK file to your Android device
+2. Enable "Install from Unknown Sources" in your device settings
+3. Open the downloaded APK file and follow the installation prompts
+
+## Tech Stack
 
 - **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
+- **Build & Deployment**: [EAS (Expo Application Services)](https://expo.dev/eas)
 - **Navigation**: [Expo Router](https://expo.dev/router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) via [NativeWind](https://www.nativewind.dev/)
 - **UI Components**: [React Native Reusables](https://reactnativereusables.com)
@@ -52,7 +67,7 @@ This fitness tracker revolutionizes how you log your health and fitness activiti
 - **Type Safety**: TypeScript
 - **Image Selection**: Expo Image Picker
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -111,7 +126,7 @@ Open the app:
 3. **View History**: Check your calendar to see all logged activities
 4. **Edit Entries**: Tap on any calendar entry to view details or make adjustments
 
-## 🔮 Roadmap\*
+## Roadmap\*
 
 - [ ] Complete Google Gemini integration for food image analysis
 - [ ] Implement voice-to-text activity logging
